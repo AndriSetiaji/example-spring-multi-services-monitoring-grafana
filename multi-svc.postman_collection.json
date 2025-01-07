@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "fca68061-ed8f-4c83-8333-2e41c885a707",
+		"name": "multi-svc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2463322"
+	},
+	"item": [
+		{
+			"name": "alpha",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/users",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user exception gamma",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/users/exception/gamma",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"users",
+										"exception",
+										"gamma"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user exception beta",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/users/exception/beta",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"users",
+										"exception",
+										"beta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user exception alpha",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/users/exception/alpha",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"users",
+										"exception",
+										"alpha"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "hello",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hello",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "beta",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "user exception",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8082/v2/users/exception",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"v2",
+										"users",
+										"exception"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "traceparent",
+										"value": "00-b06ef4ee66ca1dedd0908bd99c856aeb-f5acb9d02e192fbc-01",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8082/v2/users",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"v2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "hello",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/hello",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gamma",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "user exception",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8083/v2/users/exception",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"v2",
+										"users",
+										"exception"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "traceparent",
+										"value": "00-b06ef4ee66ca1dedd0908bd99c856aeb-f5acb9d02e192fbc-01",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8083/v2/users",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"v2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "hello",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8083/hello",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
