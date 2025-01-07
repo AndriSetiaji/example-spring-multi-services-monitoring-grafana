@@ -1,0 +1,3 @@
+rootProject.name = 'gamma'
+include ':common'
+project(':common').projectDir = new File('../common')
