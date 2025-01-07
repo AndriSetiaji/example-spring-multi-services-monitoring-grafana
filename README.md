@@ -42,3 +42,9 @@
 ### Case 4 : alpha-svc response error (user -> alpha-svc (response error) -> beta-svc (ok) -> gamma-svc (ok))
 ![multi-alpha-error](https://github.com/user-attachments/assets/f6b41098-6e49-4079-8e42-90954c46f124)
 
+### Trace and log in grafana
+![image](https://github.com/user-attachments/assets/028e6872-a431-4c82-aeff-6fa495118ea3)
+
+![image](https://github.com/user-attachments/assets/842a2d42-7504-4329-8a76-f483a6feea50)
+
+
