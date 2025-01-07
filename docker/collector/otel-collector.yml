@@ -30,15 +30,6 @@ exporters:
     tls:
       insecure: true
 
-  zipkin:
-    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
-    format: proto
-
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
-    tls:
-      insecure: true
-
 # https://github.com/open-telemetry/opentelemetry-collector/blob/main/extension/README.md
 extensions:
   # responsible for responding to health check calls on behalf of the collector.
@@ -59,7 +50,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [memory_limiter,batch]
-      exporters: [jaeger,zipkin,otlp]
+      exporters: [otlp]
     logs:
       receivers: [otlp]
       exporters: [loki]
