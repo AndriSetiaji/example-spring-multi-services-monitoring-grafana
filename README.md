@@ -25,6 +25,7 @@
 - grafana port is 3000
 - postman collection can be import from file `multi-svc.postman_collection.json`
 - all scenario flow: user -> alpha-svc -> beta-svc ->gamma-svc
+![image](https://github.com/user-attachments/assets/5d74483f-d466-4b9f-b7f8-37ceeea6f395)
 
 
 ## Screenshot
