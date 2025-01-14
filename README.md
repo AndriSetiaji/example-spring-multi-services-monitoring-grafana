@@ -47,6 +47,7 @@
 ### Trace and log in grafana
 ![image](https://github.com/user-attachments/assets/028e6872-a431-4c82-aeff-6fa495118ea3)
 
-![image](https://github.com/user-attachments/assets/842a2d42-7504-4329-8a76-f483a6feea50)
+![image](https://github.com/user-attachments/assets/e9fe4f23-9df1-4df5-a0a6-86d77c0d434f)
+
 
 
