@@ -15,6 +15,7 @@
 - need install first docker, docker compose, java 17
 - run 'docker compose up'
 - build `common` project
+- publish `common` project
 - run ':bootRun' for java services
   - alpha-svc :8081
   - beta-svc :8082
