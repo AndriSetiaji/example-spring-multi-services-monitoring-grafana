@@ -9,6 +9,7 @@
 - grafana-tempo: managing trace ✔️
 - grafana-loki: managing logs with trace ✔️
 - grafana-grafana: dashboard and alerts ✔️
+- postgresdb: database sql ✔️
 
 
 ## how to run 
