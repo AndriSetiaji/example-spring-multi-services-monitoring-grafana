@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.2'
+	id 'org.springframework.boot' version '3.2.1'
 	id 'io.spring.dependency-management' version '1.1.2'
 }
 
@@ -21,47 +21,59 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {
+		url uri("/home/ans/Documents/code/repo") // Path to local dir repo
+	}
 }
 
-
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Core application dependency
+	implementation 'org.ans.test:common:1.0.0-dev'
 
-	implementation project(':common')
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	// Spring Boot starters
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter for building REST APIs
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring Data JPA for database access
+	implementation 'org.springframework.boot:spring-boot-starter-actuator' // Actuator for monitoring and management
 
-	runtimeOnly 'io.micrometer:micrometer-registry-otlp'
-	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-	implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+	// Spring Cloud
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0' // OpenFeign for declarative REST clients
 
-	implementation 'io.opentelemetry:opentelemetry-api:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-context:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-sdk:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-sdk-trace:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.29.0'
+	// Micrometer dependencies
+	runtimeOnly 'io.micrometer:micrometer-registry-otlp' // OpenTelemetry metrics registry
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus' // Prometheus metrics registry
+	implementation 'io.micrometer:micrometer-tracing-bridge-otel' // OpenTelemetry tracing bridge
 
-	implementation 'io.opentelemetry:opentelemetry-sdk-common:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-extension-trace-propagators:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-exporter-common:1.29.0'
-	implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.29.0'
+	// OpenTelemetry dependencies
+	implementation 'io.opentelemetry:opentelemetry-api:1.29.0' // OpenTelemetry API
+	implementation 'io.opentelemetry:opentelemetry-context:1.29.0' // OpenTelemetry context management
+	implementation 'io.opentelemetry:opentelemetry-sdk:1.29.0' // OpenTelemetry SDK
+	implementation 'io.opentelemetry:opentelemetry-sdk-common:1.29.0' // Common SDK components
+	implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:1.29.0' // Autoconfigure SPI extension
+	implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.29.0' // OpenTelemetry metrics SDK
+	implementation 'io.opentelemetry:opentelemetry-sdk-trace:1.29.0' // OpenTelemetry tracing SDK
+	implementation 'io.opentelemetry:opentelemetry-extension-trace-propagators:1.29.0' // Trace propagators extension
+	implementation 'io.opentelemetry:opentelemetry-exporter-common:1.29.0' // Common exporter components
+	implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.29.0' // OTLP exporter
+	implementation 'io.opentelemetry:opentelemetry-exporter-otlp-common:1.29.0' // Common OTLP exporter components
+	implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-api-semconv:1.29.0-alpha' // Semantic conventions for instrumentation
+	implementation 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:1.29.0-alpha' // Logback appender for OpenTelemetry
 
-	implementation 'io.opentelemetry:opentelemetry-exporter-otlp-common:1.29.0'
-	implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-api-semconv:1.29.0-alpha'
+	// Database
+	implementation 'org.postgresql:postgresql:42.6.0' // PostgreSQL driver for database connectivity
 
-	implementation 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:1.29.0-alpha'
+	// Servlet API
+	implementation 'javax.servlet:javax.servlet-api:4.0.1' // Servlet API for web development
+
+	// Aspect-oriented programming
 	implementation 'org.aspectj:aspectjweaver:1.9.20'
-	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:3.1.7' // Sesuaikan versinya
 
-
+	// Lombok for reducing boilerplate code
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	implementation 'javax.servlet:javax.servlet-api:4.0.1'
-
-	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth' // Spring Cloud Sleuth
+	// Testing dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot test starter
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit platform launcher
 }
 
 tasks.named('test') {

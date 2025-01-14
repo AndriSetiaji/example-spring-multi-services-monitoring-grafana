@@ -1,5 +1,6 @@
 package com.ans.alpha.user.service;
 
+import com.ans.alpha.user.client.BetaClient;
 import io.micrometer.tracing.SpanName;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -16,34 +17,16 @@ import java.util.List;
 @Service
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private final BetaClient betaClient;
 
-    @Value("${svc.beta.user.endpoint}")
-    private String svcBetaUserEndpoint;
-
-    @Value("${svc.beta.user.exception.beta}")
-    private String svcBetaUserExceptionBeta;
-
-    @Value("${svc.beta.user.exception.gamma}")
-    private String svcBetaUserExceptionGamma;
-
-    private final RestTemplate restTemplate;
-
-    public UserService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public UserService(BetaClient betaClient) {
+        this.betaClient = betaClient;
     }
 
     public String getUsers() {
         long start = System.currentTimeMillis();
         LOGGER.info("starts getUsers");
-
-        // call beta-svc
-        String url = svcBetaUserEndpoint;
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return response.getBody();
-        } catch (Exception e) {
-            throw new RuntimeException("Simulated error in gamma-svc");
-        }
+        return betaClient.getUsersClient();
     }
 
     public String getUsersExceptionGamma() {
@@ -51,10 +34,8 @@ public class UserService {
         LOGGER.info("starts getUsers - gamma error");
 
         // call beta-svc
-        String url = svcBetaUserExceptionGamma;
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return response.getBody();
+            return betaClient.getGammaClient();
         } catch (Exception e) {
             throw new RuntimeException("Simulated error in gamma-svc");
         }
@@ -65,11 +46,8 @@ public class UserService {
         LOGGER.info("starts getUsers");
 
         // call beta-svc
-        String url = svcBetaUserExceptionBeta;
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            LOGGER.info("total time:{}", System.currentTimeMillis() - start);
-            return response.getBody();
+            return betaClient.getBetaClient();
         } catch (RestClientException e) {
             throw new RuntimeException("Failed to call external API: " + e.getMessage(), e);
         }

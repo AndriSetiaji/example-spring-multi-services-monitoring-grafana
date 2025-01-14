@@ -5,5 +5,3 @@ pluginManagement {
     }
 }
 rootProject.name = 'alpha'
-include ':common'
-project(':common').projectDir = new File('../common')

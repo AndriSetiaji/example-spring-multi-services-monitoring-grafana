@@ -5,5 +5,3 @@ pluginManagement {
     }
 }
 rootProject.name = 'beta'
-include ':common'
-project(':common').projectDir = new File('../common')

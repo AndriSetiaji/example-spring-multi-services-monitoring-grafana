@@ -1,6 +1,6 @@
 package com.ans.gamma.user.controller;
 
-import com.ans.gamma.user.service.User;
+import com.ans.gamma.user.persistence.domain.User;
 import com.ans.gamma.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -25,16 +24,20 @@ public class UserController {
     }
 
     @GetMapping("")
-    public List<User> getUsers(@RequestHeader Map<String, String> headers) {
+    public User getUsers(@RequestHeader Map<String, String> headers) {
         LOGGER.info("gamma-svc start");
-        // debug for check header
-//        headers.forEach((key, value) -> LOGGER.info("Header {} = {}", key, value));
-        return userService.getUsers();
+        return userService.getUserByIdAndName();
     }
 
     @GetMapping(value = "/exception")
     public String throwError(@RequestHeader Map<String, String> headers) {
         LOGGER.info("gamma-svc exception");
         return userService.getUsersException();
+    }
+
+   @GetMapping(value = "/specific")
+    public User getUserById1(@RequestHeader Map<String, String> headers) {
+        LOGGER.info("gamma-svc exception");
+        return userService.getUserByIdAndName();
     }
 }

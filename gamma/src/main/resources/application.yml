@@ -1,15 +1,32 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: gamma-svc
-server:
-  port: 8083
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/citizix_db
+    username: citizix_user
+    password: S3cret
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    org.hibernate:
+      SQL: DEBUG
+      orm.jdbc.bind: trace
 
 otel:
   traces:
     exporter: logging
+    exporter.endpoint: http://localhost:4317
   metrics:
     exporter: none
   propagators: tracecontext
+  instrumentation:
+    hibernate:
+      enabled: true
 
 management:
   endpoints:

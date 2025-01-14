@@ -13,6 +13,7 @@ import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
 import io.opentelemetry.sdk.resources.Resource;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.semconv.resource.attributes.ResourceAttributes;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -48,17 +49,6 @@ public class OpenTelemetryConfig {
         return builder.build();
     }
 
-    // grpc call
-//    @Bean
-//    LogRecordProcessor otelLogRecordProcessor() {
-//        return BatchLogRecordProcessor
-//                .builder(
-//                        OtlpGrpcLogRecordExporter.builder()
-//                                .setEndpoint("http://localhost:4317")
-//                                .build())
-//                .build();
-//    }
-
     // http call
     @Bean
     LogRecordProcessor otelLogRecordProcessor() {
@@ -68,6 +58,11 @@ public class OpenTelemetryConfig {
                                 .setEndpoint(OtlpLogsEndpoint)
                                 .build())
                 .build();
+    }
+
+    @PostConstruct
+    public void checkOpenTelemetryBean() {
+        System.out.println("OpenTelemetry Bean has been created: ");
     }
 }
 

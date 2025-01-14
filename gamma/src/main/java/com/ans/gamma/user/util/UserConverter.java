@@ -1,6 +1,6 @@
 package com.ans.gamma.user.util;
 
-import com.ans.gamma.user.service.User;
+import com.ans.gamma.user.persistence.domain.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,11 +10,10 @@ public class UserConverter {
             "industries for previewing layouts and visual mockups. Lorem ipsum dolor sit amet, consectetur adipiscing " +
             "elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
-    public User createUser(int id, String name) {
-        return User.builder()
-                .id(id)
-                .name(name)
-                .address(address)
-                .build();
+    public User createUser(Long id, String name) {
+        User user = new User();
+        user.setName(name);
+        user.setAddress(address);
+        return user;
     }
 }

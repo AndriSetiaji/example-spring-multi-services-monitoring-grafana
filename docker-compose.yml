@@ -12,7 +12,7 @@ services:
       - "8888:8888" # Prometheus metrics exposed by the collector
       - "8889:8889" # Prometheus exporter metrics
       - "13133:13133" # health_check extension
-      - "4317:4317" # OTLP gRPC receiver
+#      - "4317:4317" # OTLP gRPC receiver
       - "4318:4318" # OTLP http receiver
       - "55679:55679" # zpages extension
 
@@ -50,3 +50,14 @@ services:
       - ./docker/grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
     ports:
       - "3000:3000"
+
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - POSTGRES_USER=citizix_user
+      - POSTGRES_DB=citizix_db
