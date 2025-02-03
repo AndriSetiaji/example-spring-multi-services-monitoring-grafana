@@ -93,14 +93,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "New Request",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
 						}
 					]
 				},
@@ -231,46 +223,18 @@
 									{
 										"key": "traceparent",
 										"value": "00-b06ef4ee66ca1dedd0908bd99c856aeb-f5acb9d02e192fbc-01",
-										"type": "text",
-										"disabled": true
+										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "localhost:8083/v3/users",
+									"raw": "localhost:8083/v2/users",
 									"host": [
 										"localhost"
 									],
 									"port": "8083",
 									"path": [
-										"v3",
+										"v2",
 										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "user specific",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "traceparent",
-										"value": "00-b06ef4ee66ca1dedd0908bd99c856aeb-f5acb9d02e192fbc-01",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": {
-									"raw": "localhost:8083/v3/users/specific",
-									"host": [
-										"localhost"
-									],
-									"port": "8083",
-									"path": [
-										"v3",
-										"users",
-										"specific"
 									]
 								}
 							},

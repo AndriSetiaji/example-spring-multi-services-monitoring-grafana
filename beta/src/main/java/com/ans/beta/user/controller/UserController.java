@@ -26,7 +26,7 @@ public class UserController {
     public String getUsers(@RequestHeader Map<String, String> headers) {
         LOGGER.info("beta-svc - test log get user controller");
         // debug header
-//        headers.forEach((key, value) -> LOGGER.debug("Header {} = {}", key, value));
+//        headers.forEach((key, value) -> LOGGER.info("Header {} = {}", key, value));
         return userService.getUsers();
     }
 

@@ -66,7 +66,8 @@ dependencies {
 	// PostgreSQL Driver
 	runtimeOnly 'org.postgresql:postgresql:42.6.0'
 
-
+	// vault
+	implementation 'org.springframework.vault:spring-vault-core:3.1.2'
 
 }
 
@@ -82,13 +83,24 @@ publishing {
 			// Tambahkan informasi metadata Maven
 			groupId = 'org.ans.test'
 			artifactId = 'common'
-			version = '1.0.0-dev'
+			version = '1.0.6-dev'
 		}
 	}
+//	repositories {
+//		maven {
+//			// Lokasi repository (misalnya, untuk publikasi lokal)
+//			url = uri("/home/ans/Documents/code/repo")
+//		}
+//	}
 	repositories {
 		maven {
-			// Lokasi repository (misalnya, untuk publikasi lokal)
-			url = uri("/home/ans/Documents/code/repo")
+			name = "nexusLocal"
+			url = uri("http://localhost:18081/repository/maven-releases/") // Replace with "maven-snapshots" for snapshot builds
+			allowInsecureProtocol = true
+			credentials {
+				username = "admin" // Default admin user
+				password = "admin" // Replace with your password
+			}
 		}
 	}
 }
