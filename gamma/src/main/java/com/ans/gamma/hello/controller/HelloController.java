@@ -1,6 +1,7 @@
 package com.ans.gamma.hello.controller;
 
 import io.micrometer.core.annotation.Timed;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,8 @@ public class HelloController {
 
     @GetMapping("")
     @Timed(value = "hello.gamma", description = "hello")
-    public String hello() {
+    public String hello(HttpServletResponse response) {
+        response.setHeader("test", "test");
         String res = "hello from gamma-svc";
         LOGGER.info(res);
         return res;

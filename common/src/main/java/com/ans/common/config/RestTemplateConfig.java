@@ -4,6 +4,8 @@ import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,43 +19,45 @@ import java.io.IOException;
 
 @Configuration
 public class RestTemplateConfig {
+    private static final Logger log = LoggerFactory.getLogger(RestTemplateConfig.class);
+
     @Autowired
     private Tracer tracer;
 
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate restTemplate(ClientHttpRequestInterceptor requestInterceptorBefore) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getInterceptors().add(new TraceContextInterceptor(tracer));
+        restTemplate.getInterceptors().add(requestInterceptorBefore);
         return restTemplate;
     }
 
-    static class TraceContextInterceptor implements ClientHttpRequestInterceptor {
+    @Bean
+    public ClientHttpRequestInterceptor requestInterceptorBefore() {
+        return new ClientHttpRequestInterceptor() {
+            @Override
+            public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+                                                ClientHttpRequestExecution execution) throws IOException {
+                Span span = tracer.spanBuilder("rest-template-http-call").setSpanKind(SpanKind.CLIENT).startSpan();
+                try (Scope scope = span.makeCurrent()) {
+                    // Ambil trace ID, span ID, dan flag
+                    String traceId = span.getSpanContext().getTraceId();
+                    String spanId = span.getSpanContext().getSpanId();
 
-        private final Tracer tracer;
+                    // 01 untuk traced, 00 untuk tidak
+                    String traceFlags = span.getSpanContext().isSampled() ? "01" : "00";
 
-        public TraceContextInterceptor(Tracer tracer) {
-            this.tracer = tracer;
-        }
+                    // Format traceparent sesuai spesifikasi W3C
+                    String traceParent = String.format("00-%s-%s-%s", traceId, spanId, traceFlags);
 
-        @Override
-        public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-            Span span = tracer.spanBuilder("outgoing-http-call").setSpanKind(SpanKind.CLIENT).startSpan();
-            try (Scope scope = span.makeCurrent()) {
-                // Ambil trace ID, span ID, dan flag
-                String traceId = span.getSpanContext().getTraceId();
-                String spanId = span.getSpanContext().getSpanId();
-                String traceFlags = span.getSpanContext().isSampled() ? "01" : "00"; // 01 untuk traced, 00 untuk tidak
-
-                // Format traceparent sesuai spesifikasi W3C
-                String traceParent = String.format("00-%s-%s-%s", traceId, spanId, traceFlags);
-
-                // Tambahkan traceparent ke header
-                request.getHeaders().add("traceparent", traceParent);
-            } finally {
-                span.end();
+                    // Tambahkan traceparent ke header
+                    request.getHeaders().add("traceparent", traceParent);
+                } finally {
+                    span.end();
+                }
+                log.info(request.getHeaders().toString());
+//                log.info(body.toString());
+                return execution.execute(request, body);
             }
-            return execution.execute(request, body);
-        }
+        };
     }
 }
-

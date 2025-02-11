@@ -15,7 +15,7 @@ public class HelloController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloController.class);
 
     @GetMapping("")
-    @Timed(value = "hello.alpha", description = "hello")
+        @Timed(value = "hello.alpha", description = "hello")
     public String hello() {
         String res = "hello from alpha-svc";
         LOGGER.info(res);

@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(
-        value= "betaClientx",
+        value= "betaClient",
         url = "${svc.beta.endpoint}",
         configuration = TestFeignConfig.class
 )

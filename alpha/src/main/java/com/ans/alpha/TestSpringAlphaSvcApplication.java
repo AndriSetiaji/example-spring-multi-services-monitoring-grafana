@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @EnableFeignClients
 public class TestSpringAlphaSvcApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(TestSpringAlphaSvcApplication.class, args);
 	}
-
 }

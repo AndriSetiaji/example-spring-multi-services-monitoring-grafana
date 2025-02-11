@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
 	// Core application dependency
-	implementation 'org.ans.test:common:1.0.6-dev'
+	implementation 'org.ans.test:common:1.4.4-dev'
 
 	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter for building REST APIs
@@ -86,6 +86,11 @@ dependencies {
 	// Testing dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot test starter
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit platform launcher
+
+	// rest template
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'com.alibaba:fastjson:1.2.83'
 }
 
 tasks.named('test') {

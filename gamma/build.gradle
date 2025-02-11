@@ -19,6 +19,22 @@ configurations {
 	}
 }
 
+//// Membaca file .env
+//def loadEnv() {
+//	def dotenv = Dotenv.configure()
+//			.directory(rootDir)
+//			.ignoreIfMissing()
+//			.load()
+//
+//	return [
+//			username: dotenv.get("NEXUS_USERNAME", ""),
+//			password: dotenv.get("NEXUS_PASSWORD", "")
+//	]
+//}
+//
+//def nexusCredentials = loadEnv()
+
+
 //repositories {
 //	mavenCentral()
 //	maven {
@@ -32,15 +48,17 @@ repositories {
 		url = uri("http://localhost:18081/repository/maven-releases/") // Replace with "maven-snapshots" for snapshot builds
 		allowInsecureProtocol = true
 		credentials {
-			username = "admin" // Default admin user
-			password = "admin" // Replace with your password
+			username = "admin"
+			password = "admin"
+//			username = dotenv.get("NEXUS_USERNAME", "")
+//			password = dotenv.get("NEXUS_PASSWORD", "")
 		}
 	}
 }
 
 dependencies {
 	// Core application dependency
-	implementation 'org.ans.test:common:1.0.6-dev'
+	implementation 'org.ans.test:common:1.4.3-dev'
 
 	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter for building REST APIs
@@ -89,6 +107,9 @@ dependencies {
 
 	// vault
 	implementation 'org.springframework.vault:spring-vault-core:3.1.2'
+
+	//
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 }
 
 tasks.named('test') {
