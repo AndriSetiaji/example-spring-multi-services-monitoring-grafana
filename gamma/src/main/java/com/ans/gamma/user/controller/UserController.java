@@ -2,6 +2,7 @@ package com.ans.gamma.user.controller;
 
 import com.ans.gamma.user.persistence.domain.User;
 import com.ans.gamma.user.service.UserService;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,12 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
-    private UserController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("")
+    @Timed(value = "gamma-svc.UserController.getUsers", description = "getUsers")
     public User getUsers(@RequestHeader Map<String, String> headers) {
         LOGGER.info("gamma-svc start");
         return userService.getUserByIdAndName();

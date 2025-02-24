@@ -1,10 +1,14 @@
 package com.ans.gamma.user.service;
 
+import com.ans.common.config.RabbitMqConfig;
 import com.ans.gamma.user.persistence.domain.User;
 import com.ans.gamma.user.persistence.repository.UserRepository;
 import com.ans.gamma.user.util.UserConverter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,18 +17,22 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Slf4j
 @Service
 public class UserDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
     private final UserConverter userConverter;
     private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
 
     public UserDao(
             UserConverter userConverter,
-            UserRepository userRepository
+            UserRepository userRepository,
+            ObjectMapper objectMapper
     ) {
         this.userConverter = userConverter;
         this.userRepository = userRepository;
+        this.objectMapper = objectMapper;
     }
 
     private static void sleepDelay(int i) {
@@ -58,5 +66,11 @@ public class UserDao {
     public User getUsersByIdAndName(Long id, String name) {
         Optional<User> modelOpt = userRepository.findByIdAndName(id, name);
         return modelOpt.orElseGet(User::new);
+    }
+
+    public User createUser(User user) {
+        User userUpdate = userRepository.save(user);
+        LOGGER.info("✔ Data berhasil disimpan: " + user.getName() + ", " + user.getAddress());
+        return userUpdate;
     }
 }

@@ -43,6 +43,7 @@ configurations {
 //}
 repositories {
 	mavenCentral() // Repository utama
+	mavenLocal()
 	maven {
 		name = "nexusLocal"
 		url = uri("http://localhost:18081/repository/maven-releases/") // Replace with "maven-snapshots" for snapshot builds
@@ -58,7 +59,9 @@ repositories {
 
 dependencies {
 	// Core application dependency
-	implementation 'org.ans.test:common:1.4.3-dev'
+	implementation 'org.ans.test:common:1.6.3-dev'
+//	// Core application dependency
+//	implementation 'id.co.bjj:core:0.0.33-dev'
 
 	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter for building REST APIs
@@ -72,6 +75,7 @@ dependencies {
 	runtimeOnly 'io.micrometer:micrometer-registry-otlp' // OpenTelemetry metrics registry
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus' // Prometheus metrics registry
 	implementation 'io.micrometer:micrometer-tracing-bridge-otel' // OpenTelemetry tracing bridge
+	implementation 'io.micrometer:micrometer-tracing'
 
 	// OpenTelemetry dependencies
 	implementation 'io.opentelemetry:opentelemetry-api:1.29.0' // OpenTelemetry API
@@ -110,6 +114,8 @@ dependencies {
 
 	//
 	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 }
 
 tasks.named('test') {

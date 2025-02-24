@@ -40,7 +40,8 @@ repositories {
 
 dependencies {
 	// Core application dependency
-	implementation 'org.ans.test:common:1.4.4-dev'
+	implementation 'org.ans.test:common:1.6.0-dev'
+//	implementation 'id.co.bjj:core:0.0.33-dev'
 
 	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter for building REST APIs

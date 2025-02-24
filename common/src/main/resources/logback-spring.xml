@@ -12,10 +12,10 @@
         <appender-ref ref="OPEN_TELEMETRY"/>
     </root>
 
-    <!-- Appender OpenTelemetry -->
-    <appender name="OTLP" class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">
-        <otelExporter endpoint="${otel.traces.exporter.endpoint}" />
-    </appender>
+<!--    &lt;!&ndash; Appender OpenTelemetry &ndash;&gt;-->
+<!--    <appender name="OTLP" class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">-->
+<!--        <otelExporter endpoint="${otel.traces.exporter.endpoint}" />-->
+<!--    </appender>-->
 
     <!-- Logger untuk Query SQL Hibernate -->
     <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
